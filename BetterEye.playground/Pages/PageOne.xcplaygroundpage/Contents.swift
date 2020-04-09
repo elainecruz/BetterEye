@@ -15,6 +15,7 @@ CTFontManagerRegisterFontsForURL(cfURL2 as CFURL, CTFontManagerScope.process, ni
 
 let font2 = UIFont(name: "Quicksand", size: 17)!
 
+var aprendizadosImagens = [UIImage]()
 
 
 class MyViewController : UIViewController {
@@ -144,7 +145,7 @@ class MyViewController : UIViewController {
 
 class AprendizadosViewController : UIViewController, UICollectionViewDataSource{
     
-    var aprendizadosImagens = [UIImage]()
+   
     
     //teste:
 
@@ -160,7 +161,7 @@ class AprendizadosViewController : UIViewController, UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let myCell = collectionView.dequeueReusableCell(withReuseIdentifier: "MyCell", for: indexPath)
-        let whiteBackground = UIImageView (image: UIImage(named:"RectangleAzul.png"))
+        let whiteBackground = UIImageView (image: UIImage(named:"BackWhiteIcon.png"))
         let icon = UIImageView (image: aprendizadosImagens[indexPath.row])
         icon.frame = CGRect(x:35 , y: 35, width: 340, height: 350)
         
@@ -268,7 +269,8 @@ class AprendizadosViewController : UIViewController, UICollectionViewDataSource{
     
     @objc func tapBack() {
         //show(aprendizadosViewController, sender: nil)
-        dismiss(animated: true, completion: nil)
+        //dismiss(animated: true, completion: nil)
+        navigationController?.popViewController(animated: true)
         
     }
 }
@@ -276,19 +278,34 @@ class AprendizadosViewController : UIViewController, UICollectionViewDataSource{
 
 class Cenario1ViewController : UIViewController {
 
+    var achouLupa = false
     override func loadView() {
         let view = UIView()
         view.backgroundColor = #colorLiteral(red: 0.937254902, green: 0.968627451, blue: 1, alpha: 1)
         //navigationController?.navigationBar.isHidden = false
     
     
+        //Cenario
+        let cenario = UIImageView (image: UIImage (named: "Cenario.png"))
+        cenario.frame = CGRect (x:43, y:200, width: 680, height: 670)
+        
+        //Botao Lupa
+        let lupaImage = UIImage(named:"Lupa.png")
+        let btmLupa = UIButton()
+        btmLupa.frame = CGRect(x: 176, y:530, width: 30, height: 30)
+        btmLupa.setBackgroundImage(lupaImage, for: .normal)
+        btmLupa.addTarget(nil, action: #selector(tapLupa), for: .touchUpInside)
+        
         //Botao voltar
          let voltarImage = UIImage(named:"backbtm.png")
          let btmBack = UIButton()
-         btmBack.frame = CGRect(x: 30, y: 610, width: 40, height: 40)
+         btmBack.frame = CGRect(x: 30, y: 920, width: 75, height: 75)
          btmBack.setBackgroundImage(voltarImage, for: .normal)
-        btmBack.addTarget(nil, action: #selector(tapBack), for: .touchUpInside)
+         btmBack.addTarget(nil, action: #selector(tapBack), for: .touchUpInside)
         
+        
+        view.addSubview(cenario)
+        view.addSubview(btmLupa)
         view.addSubview(btmBack)
         self.view = view
     }
@@ -298,6 +315,20 @@ class Cenario1ViewController : UIViewController {
         //show(aprendizadosViewController, sender: nil)
         //dismiss(animated: true, completion: nil)
         navigationController?.popViewController(animated: true)
+        
+    }
+    
+    @objc func tapLupa() {
+        
+        if(!achouLupa){
+            aprendizadosImagens.append(UIImage(named:"Lupa.png")!)
+            aprendizadosViewController.aprendizadosCollection!.reloadData()
+            achouLupa = true
+        }
+            
+        //show(aprendizadosViewController, sender: nil)
+        //dismiss(animated: true, completion: nil)
+        //navigationController?.popViewController(animated: true)
         
     }
 }
@@ -314,8 +345,8 @@ let cenarioViewController = Cenario1ViewController(screenType: .ipad, isPortrait
 //let navigation = UINavigationController(rootViewController: firstViewController)
 let navigation = UINavigationController(screenType: .ipad, isPortrait: true)
 navigation.navigationBar.isHidden = true
-//navigation.pushViewController(firstViewController, animated: false)
-navigation.pushViewController(aprendizadosViewController, animated: false)
+navigation.pushViewController(firstViewController, animated: false)
+//navigation.pushViewController(cenarioViewController, animated: false)
 
 // Present the view controller in the Live View window
 PlaygroundPage.current.liveView = navigation.scale(to: 0.4)
