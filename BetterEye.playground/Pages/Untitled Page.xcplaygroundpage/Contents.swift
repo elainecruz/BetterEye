@@ -7,7 +7,7 @@ let cfURL = Bundle.main.url(forResource: "MedulaOne-Regular", withExtension: "tt
 
 CTFontManagerRegisterFontsForURL(cfURL as CFURL, CTFontManagerScope.process, nil)
 
-let font = UIFont(name: "MedulaOne-Regular", size: 50)!
+let font = UIFont(name: "MedulaOne-Regular", size: 85)!
 
 let cfURL2 = Bundle.main.url(forResource: "Quicksand-Bold", withExtension: "ttf")!
 
@@ -27,7 +27,7 @@ class MyViewController : UIViewController {
         
         //Name
         let name = UILabel()
-        name.frame = CGRect(x: 160, y: 25, width: 200, height: 55)
+        name.frame = CGRect(x: 330, y: 25, width: 400, height: 100)
         name.text = "BetterEye"
         name.textColor = .black
         name.font = font
@@ -35,29 +35,29 @@ class MyViewController : UIViewController {
         //Logo
         let elipses = UIImage(named: "logo.png")
         let logo  = UIImageView(image:elipses)
-        logo.frame = CGRect (x: 70, y: 15, width: 80, height: 80)
+        logo.frame = CGRect (x: 170, y: 20, width: 120, height: 120)
         
         //Comando
         let command = UILabel()
-        command.frame = CGRect(x: 110, y: 120, width: 200, height: 55)
+        command.frame = CGRect(x: 250, y: 200, width: 300, height: 55)
         command.text = "Escolha um cenário"
         command.textColor = .black
-        command.font = font2
+        command.font = UIFont(name: "Quicksand-Bold", size: 30)
         
         //Varal
         let varal = UIImage(named: "CurveLine.png")
         let varalView  = UIImageView(image:varal)
-        varalView.frame = CGRect (x: 0, y: 130, width: 390, height: 90)
+        varalView.frame = CGRect (x: 0, y: 250, width: 900, height: 90)
         
         //Cenario1 - imagem
         let retangulo1 = UIImage(named: "RectangleWhite.png")
         let retangulo1View  = UIImageView(image:retangulo1)
-        retangulo1View.frame = CGRect (x: 10, y: 10, width: 50, height: 70)
+        retangulo1View.frame = CGRect (x: 15, y: 10, width: 120, height: 160)
         
         //Cenario1
          let cenario1 = UIImage(named: "RectangleAzul.png")
          let btmCenario1 = UIButton()
-         btmCenario1.frame = CGRect(x: 40, y: 230, width: 70, height: 90)
+         btmCenario1.frame = CGRect(x: 70, y: 400, width: 150, height: 190)
          btmCenario1.setBackgroundImage(cenario1, for: .normal)
         
         //Adding action o button
@@ -71,18 +71,18 @@ class MyViewController : UIViewController {
         //Cenario2
         let retangulo2 = UIImage(named: "RectangleAzul.png")
         let retangulo2View  = UIImageView(image:retangulo2)
-        retangulo2View.frame = CGRect (x: 160, y: 230, width: 70, height: 90)
+        retangulo2View.frame = CGRect (x: 310, y: 400, width: 150, height: 190)
         
         //Cenario3
         let retangulo3 = UIImage(named: "RectangleAzul.png")
         let retangulo3View  = UIImageView(image:retangulo3)
-        retangulo3View.frame = CGRect (x: 280, y: 230, width: 70, height: 90)
+        retangulo3View.frame = CGRect (x: 550, y: 400, width: 150, height: 190)
         
          
          //Botão Meus Aprendizados
          let semiCirculo = UIImage(named:"semiCirculo.png")
          let btmMeusAprendizados = UIButton()
-         btmMeusAprendizados.frame = CGRect(x: 100, y: 600, width: 190, height: 90)
+         btmMeusAprendizados.frame = CGRect(x: 200, y: 860, width: 360, height: 164)
          btmMeusAprendizados.setBackgroundImage(semiCirculo, for: .normal)
          //btmMeusAprendizados.setTitle("Meus Aprendizados", for: .normal)
         //btmMeusAprendizados.titleLabel?.text = "Meus Aprendizados"
@@ -97,9 +97,9 @@ class MyViewController : UIViewController {
 
         let label = UILabel()
         label.text = "Meus Aprendizados"
-        label.font = font2
+        label.font = UIFont(name: "Quicksand-Bold", size: 37)
         label.textColor = .white
-        label.frame = CGRect(x: 18, y: 0, width: 150, height: 80)
+        label.frame = CGRect(x: 40, y: 0, width: 270, height: 200)
         label.numberOfLines = 2
         label.textAlignment = .center
         btmMeusAprendizados.addSubview(label)
@@ -125,7 +125,10 @@ class MyViewController : UIViewController {
     
     @objc func tapMeusAprendizados() {
         //show(aprendizadosViewController, sender: nil)
-        present(aprendizadosViewController, animated: true, completion: nil)
+        
+        //present(aprendizadosViewController, animated: true, completion: nil)
+        
+        navigationController?.pushViewController(aprendizadosViewController, animated: true)
         
     }
     
@@ -139,11 +142,77 @@ class MyViewController : UIViewController {
     
 }
 
-class AprendizadosViewController : UIViewController {
+class AprendizadosViewController : UIViewController, UICollectionViewDataSource{
+    
+    var aprendizadosImagens = [UIImage]()
+    
+    //teste:
+
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        aprendizadosImagens.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        let myCell = collectionView.dequeueReusableCell(withReuseIdentifier: "MyCell", for: indexPath)
+        let whiteBackground = UIImageView (image: UIImage(named:"RectangleAzul.png"))
+        let icon = UIImageView (image: aprendizadosImagens[indexPath.row])
+        icon.frame = CGRect(x:35 , y: 35, width: 340, height: 350)
+        
+       
+        whiteBackground.addSubview(icon)
+        
+        //icon.center = whiteBackground.center
+        
+        myCell.backgroundView = whiteBackground
+        
+        //UIImage(named: cachorros[indexPath.row].imagemSilhueta)
+        return myCell
+    }
+
+    
+    var aprendizadosCollection: UICollectionView?
+    //var icones = []
     
     override func loadView() {
         let view = UIView()
         view.backgroundColor = #colorLiteral(red: 0.937254902, green: 0.968627451, blue: 1, alpha: 1)
+        
+        //Configurando CollectionView
+        let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+        layout.sectionInset = UIEdgeInsets(top: 32, left: 20, bottom: 20, right: 20)
+        layout.itemSize = CGSize(width: 400, height: 400)
+        layout.scrollDirection = .horizontal
+        
+        // Inicializando Collection com o tamanho e layout desejado
+        aprendizadosCollection = UICollectionView(frame: CGRect(x: 200, y: 300, width: 570, height: 480), collectionViewLayout: layout)
+        
+        //: Registrando qual a classe que será usada para desenhar cada célula do UICollectionView
+        aprendizadosCollection?.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "MyCell")
+        aprendizadosCollection?.backgroundColor = UIColor.white
+        aprendizadosCollection?.dataSource = self
+        aprendizadosCollection?.backgroundColor = .red
+        
+        
+        //teste:
+//        aprendizadosImagens.append(UIImage(named:"logo.png")!)
+//        aprendizadosImagens.append(UIImage(named:"logo.png")!)
+//        aprendizadosImagens.append(UIImage(named:"logo.png")!)
+//        aprendizadosImagens.append(UIImage(named:"logo.png")!)
+//        aprendizadosImagens.append(UIImage(named:"logo.png")!)
+//        aprendizadosImagens.append(UIImage(named:"logo.png")!)
+//        aprendizadosImagens.append(UIImage(named:"logo.png")!)
+//        aprendizadosImagens.append(UIImage(named:"logo.png")!)
+        
+        
+        
+        
+        view.addSubview(aprendizadosCollection!)
         
         //Title
         let elipse = UIImage(named: "semiCirculo2.png")
@@ -165,7 +234,7 @@ class AprendizadosViewController : UIViewController {
         //Botao voltar
          let voltarImage = UIImage(named:"backbtm.png")
          let btmBack = UIButton()
-         btmBack.frame = CGRect(x: 30, y: 610, width: 40, height: 40)
+         btmBack.frame = CGRect(x: 30, y: 920, width: 75, height: 75)
          btmBack.setBackgroundImage(voltarImage, for: .normal)
         btmBack.addTarget(nil, action: #selector(tapBack), for: .touchUpInside)
         
@@ -187,10 +256,10 @@ class AprendizadosViewController : UIViewController {
         
         view.addSubview(elipseImage)
         //view.addSubview(labelMeusAprendizados)
-        view.addSubview(boxImage1)
-        view.addSubview(boxImage2)
-        view.addSubview(boxImage3)
-        view.addSubview(boxImage4)
+        //view.addSubview(boxImage1)
+        //view.addSubview(boxImage2)
+        //view.addSubview(boxImage3)
+        //view.addSubview(boxImage4)
         view.addSubview(btmBack)
         self.view = view
     }
@@ -232,14 +301,24 @@ class Cenario1ViewController : UIViewController {
         
     }
 }
-let firstViewController = MyViewController()
-let aprendizadosViewController = AprendizadosViewController()
+
+
+
+
+
+let firstViewController = MyViewController(screenType: .ipad, isPortrait: true)
+let aprendizadosViewController = AprendizadosViewController(screenType: .ipad, isPortrait: true)
+//aprendizadosViewController.scale(to: 0.4)
 aprendizadosViewController.modalPresentationStyle = .fullScreen
-let cenarioViewController = Cenario1ViewController()
-let navigation = UINavigationController(rootViewController: firstViewController)
+let cenarioViewController = Cenario1ViewController(screenType: .ipad, isPortrait: true)
+//let navigation = UINavigationController(rootViewController: firstViewController)
+let navigation = UINavigationController(screenType: .ipad, isPortrait: true)
+navigation.navigationBar.isHidden = true
+//navigation.pushViewController(firstViewController, animated: false)
+navigation.pushViewController(aprendizadosViewController, animated: false)
 
 // Present the view controller in the Live View window
-PlaygroundPage.current.liveView = navigation
+PlaygroundPage.current.liveView = navigation.scale(to: 0.4)
 
 
 
