@@ -22,8 +22,9 @@ class MyViewController : UIViewController {
    
     override func loadView() {
         let view = UIView()
-        view.backgroundColor = #colorLiteral(red: 0.937254902, green: 0.968627451, blue: 1, alpha: 1)
-        
+        //view.backgroundColor = #colorLiteral(red: 0.937254902, green: 0.968627451, blue: 1, alpha: 1)
+        let background = UIImageView (image: UIImage(named:"Background.png"))
+        background.frame = CGRect(x: 0, y: 0, width: 768, height: 1024)
         navigationController?.navigationBar.isHidden = true
         
         //Name
@@ -40,86 +41,50 @@ class MyViewController : UIViewController {
         
         //Comando
         let command = UILabel()
-        command.frame = CGRect(x: 250, y: 200, width: 300, height: 55)
-        command.text = "Escolha um cenário"
+        command.frame = CGRect(x: 180, y: 180, width: 400, height: 100)
+        command.text = "Olá, \n Escolha um cenário"
         command.textColor = .black
-        command.font = UIFont(name: "Quicksand-Bold", size: 30)
+        command.numberOfLines = 2
+        command.textAlignment = .center
+        command.font = UIFont(name: "Quicksand-Bold", size: 40)
         
-        //Varal
-        let varal = UIImage(named: "CurveLine.png")
+        //Photo Album
+        let varal = UIImage(named: "PhotoAlbum.png")
         let varalView  = UIImageView(image:varal)
-        varalView.frame = CGRect (x: 0, y: 250, width: 900, height: 90)
+        varalView.frame = CGRect (x: 40, y: 200, width: 700, height: 700)
         
-        //Cenario1 - imagem
-        let retangulo1 = UIImage(named: "RectangleWhite.png")
-        let retangulo1View  = UIImageView(image:retangulo1)
-        retangulo1View.frame = CGRect (x: 15, y: 10, width: 120, height: 160)
         
         //Cenario1
-         let cenario1 = UIImage(named: "RectangleAzul.png")
+         let cenario1 = UIImage(named: "Cenario.png")
          let btmCenario1 = UIButton()
-         btmCenario1.frame = CGRect(x: 70, y: 400, width: 150, height: 190)
+         btmCenario1.frame = CGRect(x: 175, y: 373, width: 125, height: 110)
          btmCenario1.setBackgroundImage(cenario1, for: .normal)
         
         //Adding action o button
         btmCenario1.addTarget(nil, action: #selector(tapCenario1), for: .touchUpInside)
-        
-        //Adding button of cenario to blue card
-        btmCenario1.addSubview(retangulo1View)
-        view.addSubview(btmCenario1)
-      
-        
-        //Cenario2
-        let retangulo2 = UIImage(named: "RectangleAzul.png")
-        let retangulo2View  = UIImageView(image:retangulo2)
-        retangulo2View.frame = CGRect (x: 310, y: 400, width: 150, height: 190)
-        
-        //Cenario3
-        let retangulo3 = UIImage(named: "RectangleAzul.png")
-        let retangulo3View  = UIImageView(image:retangulo3)
-        retangulo3View.frame = CGRect (x: 550, y: 400, width: 150, height: 190)
-        
          
          //Botão Meus Aprendizados
-         let semiCirculo = UIImage(named:"semiCirculo.png")
+         let semiCirculo = UIImage(named:"PinkRectangle.png")
          let btmMeusAprendizados = UIButton()
-         btmMeusAprendizados.frame = CGRect(x: 200, y: 860, width: 360, height: 164)
+         btmMeusAprendizados.frame = CGRect(x: 220, y: 880, width: 340, height: 97)
          btmMeusAprendizados.setBackgroundImage(semiCirculo, for: .normal)
-         //btmMeusAprendizados.setTitle("Meus Aprendizados", for: .normal)
+         btmMeusAprendizados.setTitle("Aprendizados", for: .normal)
         //btmMeusAprendizados.titleLabel?.text = "Meus Aprendizados"
-        //btmMeusAprendizados.titleLabel?.font = font2
-        //btmMeusAprendizados.titleLabel?.textAlignment = .center
-        //btmMeusAprendizados.titleLabel?.frame = CGRect(x: 100, y: 550, width: 100, height: 200)
-        //btmMeusAprendizados.titleLabel?.numberOfLines = 2
-       
-        //btmMeusAprendizados.titleLabel?.translatesAutoresizingMaskIntoConstraints = false
-        //btmMeusAprendizados.titleLabel?.lineBreakMode = NSLineBreakMode.byWordWrapping
-        //btmMeusAprendizados.titleLabel?.lineBreakMode = NSLineBreakMode.byCharWrapping
+        btmMeusAprendizados.titleLabel?.font = UIFont(name: "Quicksand-Bold", size: 35)
 
-        let label = UILabel()
-        label.text = "Meus Aprendizados"
-        label.font = UIFont(name: "Quicksand-Bold", size: 37)
-        label.textColor = .white
-        label.frame = CGRect(x: 40, y: 0, width: 270, height: 200)
-        label.numberOfLines = 2
-        label.textAlignment = .center
-        btmMeusAprendizados.addSubview(label)
         
         btmMeusAprendizados.addTarget(nil, action: #selector(tapMeusAprendizados), for: .touchUpInside)
 
         
         
 
-        
+        view.addSubview(background)
         view.addSubview(name)
         view.addSubview(logo)
         view.addSubview(command)
         view.addSubview(varalView)
-        //view.addSubview(retangulo1View)
-        view.addSubview(retangulo2View)
-        view.addSubview(retangulo3View)
         view.addSubview(btmMeusAprendizados)
-        //view.addSubview(labelMeusAprendizados)
+        view.addSubview(btmCenario1)
 
         self.view = view
     }
@@ -144,10 +109,6 @@ class MyViewController : UIViewController {
 }
 
 class AprendizadosViewController : UIViewController, UICollectionViewDataSource{
-    
-   
-    
-    //teste:
 
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -184,6 +145,11 @@ class AprendizadosViewController : UIViewController, UICollectionViewDataSource{
         let view = UIView()
         view.backgroundColor = #colorLiteral(red: 0.937254902, green: 0.968627451, blue: 1, alpha: 1)
         
+        //background
+        let background = UIImageView (image: UIImage(named:"Background.png"))
+        background.frame = CGRect(x: 0, y: 0, width: 768, height: 1024)
+        
+        
         //Configurando CollectionView
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top: 32, left: 20, bottom: 20, right: 20)
@@ -197,71 +163,55 @@ class AprendizadosViewController : UIViewController, UICollectionViewDataSource{
         aprendizadosCollection?.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "MyCell")
         aprendizadosCollection?.backgroundColor = UIColor.white
         aprendizadosCollection?.dataSource = self
-        aprendizadosCollection?.backgroundColor = .red
-        
-        
-        //teste:
-//        aprendizadosImagens.append(UIImage(named:"logo.png")!)
-//        aprendizadosImagens.append(UIImage(named:"logo.png")!)
-//        aprendizadosImagens.append(UIImage(named:"logo.png")!)
-//        aprendizadosImagens.append(UIImage(named:"logo.png")!)
-//        aprendizadosImagens.append(UIImage(named:"logo.png")!)
-//        aprendizadosImagens.append(UIImage(named:"logo.png")!)
-//        aprendizadosImagens.append(UIImage(named:"logo.png")!)
-//        aprendizadosImagens.append(UIImage(named:"logo.png")!)
+        aprendizadosCollection?.backgroundColor = .white
         
         
         
         
-        view.addSubview(aprendizadosCollection!)
         
         //Title
-        let elipse = UIImage(named: "semiCirculo2.png")
-        let elipseImage = UIImageView(image:elipse)
-        elipseImage.frame = CGRect (x: 80, y: 0, width: 230, height: 100)
-        
-        
+        let rectangle = UIImageView(image: UIImage(named: "PinkRectangle.png"))
+        rectangle.frame = CGRect (x: 130, y: -50, width: 460, height: 200)
+    
+    
         let labelMeusAprendizados = UILabel()
-               labelMeusAprendizados.frame = CGRect(x: 30, y: 0, width: 170, height: 70)
-               labelMeusAprendizados.text = "Meus Aprendizados"
+               labelMeusAprendizados.frame = CGRect(x: 220, y: 20, width: 300, height: 70)
+               labelMeusAprendizados.text = "Aprendizados"
                labelMeusAprendizados.textColor = .white
                //labelMeusAprendizados.font = font2
-               labelMeusAprendizados.font = UIFont(name:"Quicksand-Bold", size: 23.0)
+               labelMeusAprendizados.font = UIFont(name:"Quicksand-Bold", size: 42)
                labelMeusAprendizados.numberOfLines = 2
                labelMeusAprendizados.textAlignment = .center
         
-        elipseImage.addSubview(labelMeusAprendizados)
+        //rectangle.addSubview(labelMeusAprendizados)
+        
+        //Label Cenario
+        let labelCenario = UILabel()
+        labelCenario.frame = CGRect(x: 65, y: 210, width: 200, height: 70)
+        labelCenario.text = "Cenário 1:"
+        labelCenario.font = UIFont(name:"Quicksand-Bold", size: 35)
+        
         
         //Botao voltar
-         let voltarImage = UIImage(named:"backbtm.png")
+         let voltarImage = UIImage(named:"Backbtm-2.png")
          let btmBack = UIButton()
          btmBack.frame = CGRect(x: 30, y: 920, width: 75, height: 75)
          btmBack.setBackgroundImage(voltarImage, for: .normal)
-        btmBack.addTarget(nil, action: #selector(tapBack), for: .touchUpInside)
+         btmBack.addTarget(nil, action: #selector(tapBack), for: .touchUpInside)
         
         
-        // Containers
-        let box = UIImage(named: "RectangleWhite.png")
-        let boxImage1  = UIImageView(image:box)
-        boxImage1.frame = CGRect (x: 50, y: 200, width: 60, height: 60)
         
-        let boxImage2  = UIImageView(image:box)
-        boxImage2.frame = CGRect (x: 130, y: 200, width: 60, height: 60)
-        
-        let boxImage3  = UIImageView(image:box)
-        boxImage3.frame = CGRect (x: 210, y: 200, width: 60, height: 60)
-        
-        let boxImage4  = UIImageView(image:box)
-        boxImage4.frame = CGRect (x: 290, y: 200, width: 60, height: 60)
-        
-        
-        view.addSubview(elipseImage)
+        view.addSubview(background)
+        view.addSubview(rectangle)
+        view.addSubview(labelMeusAprendizados)
+        view.addSubview(labelCenario)
         //view.addSubview(labelMeusAprendizados)
         //view.addSubview(boxImage1)
         //view.addSubview(boxImage2)
         //view.addSubview(boxImage3)
         //view.addSubview(boxImage4)
         view.addSubview(btmBack)
+        view.addSubview(aprendizadosCollection!)
         self.view = view
     }
     
@@ -270,6 +220,7 @@ class AprendizadosViewController : UIViewController, UICollectionViewDataSource{
     @objc func tapBack() {
         //show(aprendizadosViewController, sender: nil)
         //dismiss(animated: true, completion: nil)
+        //print("chegou em tapback")
         navigationController?.popViewController(animated: true)
         
     }
@@ -285,6 +236,16 @@ class Cenario1ViewController : UIViewController {
         //navigationController?.navigationBar.isHidden = false
     
     
+        //Command
+        let command = UILabel()
+        command.text = "Encontre: "
+        command.font = UIFont(name: "Quicksand-Bold", size: 47)
+        command.frame = CGRect(x: 50, y: 30, width: 300, height: 200)
+        
+        //White Container
+        let whiteRectangle = UIImageView(image: UIImage(named:"whiteLongRectangle"))
+        whiteRectangle.frame = CGRect(x: 300, y: 93, width: 350, height: 78)
+        
         //Cenario
         let cenario = UIImageView (image: UIImage (named: "Cenario.png"))
         cenario.frame = CGRect (x:43, y:200, width: 680, height: 670)
@@ -297,7 +258,7 @@ class Cenario1ViewController : UIViewController {
         btmLupa.addTarget(nil, action: #selector(tapLupa), for: .touchUpInside)
         
         //Botao voltar
-         let voltarImage = UIImage(named:"backbtm.png")
+         let voltarImage = UIImage(named:"Backbtm-2.png")
          let btmBack = UIButton()
          btmBack.frame = CGRect(x: 30, y: 920, width: 75, height: 75)
          btmBack.setBackgroundImage(voltarImage, for: .normal)
@@ -307,6 +268,9 @@ class Cenario1ViewController : UIViewController {
         view.addSubview(cenario)
         view.addSubview(btmLupa)
         view.addSubview(btmBack)
+        view.addSubview(command)
+        view.addSubview(whiteRectangle)
+        
         self.view = view
     }
     
@@ -346,7 +310,7 @@ let cenarioViewController = Cenario1ViewController(screenType: .ipad, isPortrait
 let navigation = UINavigationController(screenType: .ipad, isPortrait: true)
 navigation.navigationBar.isHidden = true
 navigation.pushViewController(firstViewController, animated: false)
-//navigation.pushViewController(cenarioViewController, animated: false)
+//navigation.pushViewController(aprendizadosViewController, animated: false)
 
 // Present the view controller in the Live View window
 PlaygroundPage.current.liveView = navigation.scale(to: 0.4)
