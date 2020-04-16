@@ -857,6 +857,10 @@ class SaibaMaisViewController: UIViewController{
         let background = UIImageView (image: UIImage(named:"bckgnd.png"))
         background.frame = CGRect(x: 0, y: 0, width: 768, height: 1024)
         
+        //links and fontes
+        let links = UIImageView(image: UIImage(named: "links.png"))
+        links.frame = CGRect(x: 230, y: 770, width: 310, height: 120)
+        
         
         //Botao voltar
         let voltarImage = UIImage(named:"Backbtm-2.png")
@@ -870,6 +874,7 @@ class SaibaMaisViewController: UIViewController{
         
         view.addSubview(background)
         view.addSubview(btmBack)
+        view.addSubview(links)
         
         
         
