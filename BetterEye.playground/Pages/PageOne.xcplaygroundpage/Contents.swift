@@ -40,6 +40,10 @@ var texts = [UILabel]()
 
 
 class MyViewController : UIViewController {
+    
+    private var chompPlayer: AVAudioPlayer?
+    public var lockSquareView = UIImageView()
+    public var lockArchViewContainer = UIView()
    
     override func loadView() {
         let view = UIView()
@@ -47,6 +51,8 @@ class MyViewController : UIViewController {
         let background = UIImageView (image: UIImage(named:"Background.png"))
         background.frame = CGRect(x: 0, y: 0, width: 768, height: 1024)
         navigationController?.navigationBar.isHidden = true
+        
+        chompPlayer = createPlayer(from: "unlock")
         
         //Name
         let name = UILabel()
@@ -70,10 +76,27 @@ class MyViewController : UIViewController {
         command.font = UIFont(name: "Quicksand-Bold", size: 40)
         
         //Photo Album
-        let varal = UIImage(named: "PhotoAlbum.png")
+        let varal = UIImage(named: "album-2.png")
         let varalView  = UIImageView(image:varal)
         varalView.frame = CGRect (x: 40, y: 200, width: 700, height: 700)
         
+        //Padlock that will unlock
+        
+        lockArchViewContainer = UIView(frame: CGRect(x: 490, y: 315, width: 250 , height: 250 ))
+        lockArchViewContainer.clipsToBounds = true
+        //lockContainer.addSubview(lockArchViewContainer)
+
+        let lockArchView = UIImageView(image: UIImage(named: "lockArch.png"))
+        lockArchView.frame = CGRect(x: 20, y: 62, width: 58 , height: 50 )
+        lockArchView.layer.anchorPoint = CGPoint(x: 22.0/45.0, y: 50.0/110.0)
+        lockArchViewContainer.addSubview(lockArchView)
+
+        lockSquareView = UIImageView(image: UIImage(named: "lockSquare.png"))
+        lockSquareView.frame = CGRect(x: 18, y:105, width: 68, height: 55)
+        //lockContainer.addSubview(lockSquareView)
+        lockArchViewContainer.addSubview(lockSquareView)
+
+       
         
         //Cenario1
          let cenario1 = UIImage(named: "Cenario.png")
@@ -106,6 +129,7 @@ class MyViewController : UIViewController {
         view.addSubview(varalView)
         view.addSubview(btmMeusAprendizados)
         view.addSubview(btmCenario1)
+        view.addSubview(lockArchViewContainer)
 
         self.view = view
     }
@@ -125,6 +149,41 @@ class MyViewController : UIViewController {
         //present(aprendizadosViewController, animated: true, completion: nil)
         navigationController?.pushViewController(cenarioViewController, animated: true)
         
+    }
+    
+    func animationPadlock(){
+        
+        UIView.animate(withDuration: 0.15, delay: 0, options:.beginFromCurrentState, animations: {
+            
+//            let scale = CGAffineTransform(scaleX: 1.2, y: 1.2)
+//            self.lockArchViewContainer.transform = scale
+            
+            self.lockSquareView.frame = CGRect(x: 18, y:115, width: 68, height: 55)
+        })
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+            
+            self.chompPlayer?.play()
+        }
+    }
+    
+    func createPlayer(from filename: String) -> AVAudioPlayer? {
+      guard let url = Bundle.main.url(
+        forResource: filename,
+        withExtension: "mp3"
+        ) else {
+          return nil
+      }
+      var player = AVAudioPlayer()
+
+      do {
+        try player = AVAudioPlayer(contentsOf: url)
+        player.prepareToPlay()
+      } catch {
+        print("Error loading \(url.absoluteString): \(error)")
+      }
+
+      return player
     }
     
 }
@@ -433,6 +492,13 @@ class Cenario1ViewController : UIViewController {
         btmOk.isHidden = true
         
         
+        //label saiba mais
+        let saibaMaisLabel = UILabel()
+        saibaMaisLabel.frame = CGRect(x: 23, y: 3, width: 100, height: 50)
+        saibaMaisLabel.text = "Saiba Mais"
+        saibaMaisLabel.font = UIFont(name: "Quicksand", size: 20)
+        
+        btmSaibaMais.addSubview(saibaMaisLabel)
         
         
         //Background
@@ -447,9 +513,9 @@ class Cenario1ViewController : UIViewController {
 
         //botao saiba mais""
         btmSaibaMais.setBackgroundImage(rectangleStroke, for: .normal)
-        btmSaibaMais.setTitle("Saiba Mais", for: .normal)
-        btmSaibaMais.titleLabel?.font = UIFont(name: "Quicksand", size: 20)
-        btmSaibaMais.titleLabel?.textColor = .black
+//        btmSaibaMais.setTitle("Saiba Mais", for: .normal)
+//        btmSaibaMais.titleLabel?.font = UIFont(name: "Quicksand", size: 20)
+//        btmSaibaMais.titleLabel?.textColor = .black
         btmSaibaMais.addTarget(nil, action: #selector(tapSaibaMais), for: .touchUpInside)
         btmSaibaMais.isHidden = true
         
@@ -703,6 +769,7 @@ class Cenario1ViewController : UIViewController {
 //        finishedPopUp.isHidden = true
 //        finishedLabel.isHidden = true
 //        btmOk2.isHidden = true
+        firstViewController.animationPadlock()
         navigationController?.popViewController(animated: false)
        
     }
