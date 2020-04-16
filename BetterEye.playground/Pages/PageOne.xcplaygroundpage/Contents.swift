@@ -169,7 +169,11 @@ class AprendizadosViewController : UIViewController, UICollectionViewDataSource,
             saibaMaisViewController.textCard = texts[indexPath.row]
             
             
-            saibaMaisViewController.updateview()
+            if(indexPath.row>0){
+                saibaMaisViewController.titleCard.frame = CGRect(x: 150, y: 320, width: 700, height: 100)
+            }else{
+                saibaMaisViewController.titleCard.frame = CGRect(x: 120, y: 320, width: 700, height: 100)
+            }
             
             navigation.pushViewController(saibaMaisViewController, animated: false)
         }
@@ -200,12 +204,12 @@ class AprendizadosViewController : UIViewController, UICollectionViewDataSource,
         
         aux[0].text = "Não coloque rótulos na criança"
         titles.append(aux[0])
-        aux2[0].text = "    Dizer para seu/sua filho(a) que ele(a) é agressivo(a), por exemplo, é extremamente limitador para o desenvolvimento da personalidade dele(a) e pode vir a agravar os comportamentos agressivos. \n \n   Uma alternativa a esse comentário seria dizer que  “a raiva o deixou agressivo, por exemplo."
+        aux2[0].text = "    Dizer para seu/sua filho(a) que ele(a) é agressivo(a), por exemplo, é extremamente limitador para o desenvolvimento da personalidade dele(a) e pode vir a agravar os comportamentos agressivos. \n \n           Uma alternativa a esse comentário seria dizer que  “a raiva o deixou agressivo, por exemplo."
         texts.append(aux2[0])
         aux[1].text = "Sugira a atitude desejada"
-        aux2[1].text = "    Dizer para seu filho que ele deve para de correr ou para de gritar pode motivá-lo a continuar fazendo tal ação. Ao invés disso diga explicitamente o que você deseja que ele faça no lugar disso. \n \n Troque o pare de gritar por você pode usar uma voz mais calma e baixa?"
+        aux2[1].text = "    Dizer para seu filho que ele deve para de correr ou para de gritar pode motivá-lo a continuar fazendo tal ação. Ao invés disso diga explicitamente o que você deseja que ele faça no lugar disso. \n \n    Troque o pare de gritar por você pode usar uma voz mais calma e baixa?"
         aux[2].text = "Conecte-se antes de corrigir"
-        aux2[2].text = "    É muito difícil influenciar positivamente uma criança se não houver uma conexão com ela. Conexão cria um ambiente seguro e honesto. Com isso, a criança fica mais aberta para uma correção respeitosa. \n\n Pode-se substituir o pare de chorar por eu entendo como você se sente."
+        aux2[2].text = "    É muito difícil influenciar positivamente uma criança se não houver uma conexão com ela. Conexão cria um ambiente seguro e honesto. Com isso, a criança fica mais aberta para uma correção respeitosa. \n\n    Pode-se substituir o pare de chorar por eu entendo como você se sente."
         titles.append(aux[1])
         texts.append(aux2[1])
         titles.append(aux[2])
@@ -213,9 +217,7 @@ class AprendizadosViewController : UIViewController, UICollectionViewDataSource,
         
         icones.append(UIImageView(image: UIImage(named: "megaphone.png")))
         icones.append(UIImageView(image: UIImage(named: "connect.png")))
-        
-        print(titles)
-        print(texts)
+
         
         //background
         let background = UIImageView (image: UIImage(named:"Background.png"))
@@ -548,7 +550,7 @@ class Cenario1ViewController : UIViewController {
            titlePopUp.text = "Não coloque rótulos nas crianças"
            
            //text
-           textPopUp.text = "   Dizer para seu/sua filho(a) que ele(a) é agressivo(a), por exemplo, é extremamente limitador para o desenvolvimento da personalidade dele(a) e pode vir a agravar os comportamentos agressivos. \n \n   Uma alternativa a esse comentário seria dizer que  “a raiva o deixou agressivo, por exemplo."
+           textPopUp.text = "    Dizer para seu/sua filho(a) que ele(a) é agressivo(a), por exemplo, é extremamente limitador para o desenvolvimento da personalidade dele(a) e pode vir a agravar os comportamentos agressivos. \n \n   Uma alternativa a esse comentário seria dizer que  “a raiva o deixou agressivo, por exemplo."
             
           //btm Saiba mais
 //          btmSaibaMais.frame = CGRect(x: 500, y: 800, width: 150, height: 50)
@@ -601,7 +603,7 @@ class Cenario1ViewController : UIViewController {
             titlePopUp.font = UIFont(name: "Quicksand-Bold", size: 30)
             
             //text
-            textPopUp.text = "  Dizer para seu filho que ele deve para de correr ou para de gritar pode motivá-lo a continuar fazendo tal ação. Ao invés disso diga explicitamente o que você deseja que ele faça no lugar disso. \n \n Troque o pare de gritar por você pode usar uma voz mais calma e baixa?"
+            textPopUp.text = "    Dizer para seu filho que ele deve para de correr ou para de gritar pode motivá-lo a continuar fazendo tal ação. Ao invés disso diga explicitamente o que você deseja que ele faça no lugar disso. \n \n   Troque o pare de gritar por você pode usar uma voz mais calma e baixa?"
             
             //btm Saiba mais
 //            btmSaibaMais.frame = CGRect(x: 500, y: 800, width: 150, height: 50)
@@ -651,7 +653,7 @@ class Cenario1ViewController : UIViewController {
             titlePopUp.font = UIFont(name: "Quicksand-Bold", size: 30)
             
             //text
-            textPopUp.text = "  É muito difícil influenciar positivamente uma criança se não houver uma conexão com ela. Conexão cria um ambiente seguro e honesto. Com isso, a criança fica mais aberta para uma correção respeitosa. \n\n Pode-se substituir o pare de chorar por eu entendo como você se sente."
+            textPopUp.text = "    É muito difícil influenciar positivamente uma criança se não houver uma conexão com ela. Conexão cria um ambiente seguro e honesto. Com isso, a criança fica mais aberta para uma correção respeitosa. \n\n   Pode-se substituir o pare de chorar por eu entendo como você se sente."
             
             //btm Saiba mais
 //            btmSaibaMais.frame = CGRect(x: 500, y: 800, width: 150, height: 50)
@@ -707,8 +709,6 @@ class Cenario1ViewController : UIViewController {
     
     @IBAction func tapSaibaMais(){
         
-        print(titles)
-        print(texts)
         
         let saibaMaisViewController = SaibaMaisViewController(screenType: .ipad, isPortrait: true)
         
@@ -716,20 +716,20 @@ class Cenario1ViewController : UIViewController {
             saibaMaisViewController.iconCard = icones[0]
             saibaMaisViewController.titleCard = titles[0]
             saibaMaisViewController.textCard = texts[0]
-            print("Entrei no if ")
-            print(titles[0])
-            print(texts[0])
+            saibaMaisViewController.titleCard.frame = CGRect(x: 120, y: 320, width: 700, height: 100)
+            
         } else if(titlePopUp.text == "Sugira a atitude desejada"){
             saibaMaisViewController.iconCard = icones[1]
             saibaMaisViewController.titleCard = titles[1]
             saibaMaisViewController.textCard = texts[1]
-            print("Entrei no else if ")
-            print(titles[1])
-            print(texts[1])
+            
+            saibaMaisViewController.titleCard.frame = CGRect(x: 170, y: 320, width: 700, height: 100)
+            
         }else{
             saibaMaisViewController.iconCard = icones[2]
             saibaMaisViewController.titleCard = titles[2]
             saibaMaisViewController.textCard = texts[2]
+            saibaMaisViewController.titleCard.frame = CGRect(x: 150, y: 320, width: 700, height: 100)
         }
         
        
@@ -737,7 +737,6 @@ class Cenario1ViewController : UIViewController {
 //        btmSaibaMais.titleLabel?.textColor = .black
 //        btmSaibaMais.titleLabel?.isHidden = false
         
-        saibaMaisViewController.updateview()
         
         navigation.pushViewController(saibaMaisViewController, animated: false)
     }
@@ -773,7 +772,7 @@ class SaibaMaisViewController: UIViewController{
     override func viewWillAppear(_ animated: Bool){
          iconCard.frame = CGRect(x: 330, y: 200, width: 120, height: 120)
          titleCard.font = UIFont(name: "Quicksand-Bold", size: 35 )
-         titleCard.frame = CGRect(x: 120, y: 320, width: 700, height: 100)
+         
          textCard.font = UIFont(name: "Quicksand", size: 25)
          textCard.frame = CGRect(x: 80, y: 200, width: 610, height: 700)
          textCard.numberOfLines = 0
@@ -814,15 +813,6 @@ class SaibaMaisViewController: UIViewController{
     @objc func tapBack(){
         navigationController?.popViewController(animated: false)
     }
-    
-    public func updateview(){
-        
-        print(titleCard)
-        print(textCard)
-        
-
-    }
-    
     
 }
 
