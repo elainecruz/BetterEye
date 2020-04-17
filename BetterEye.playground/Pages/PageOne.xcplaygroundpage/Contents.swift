@@ -161,7 +161,7 @@ class MyViewController : UIViewController {
             self.lockSquareView.frame = CGRect(x: 18, y:115, width: 68, height: 55)
         })
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3.3) {
             
             self.chompPlayer?.play()
         }
@@ -364,6 +364,7 @@ class AprendizadosViewController : UIViewController, UICollectionViewDataSource,
 class Cenario1ViewController : UIViewController {
 
     private var chompPlayer: AVAudioPlayer?
+    private var FoundPlayer: AVAudioPlayer?
     
     public var achouLupa = false
     public var achouMegaphone = false
@@ -405,6 +406,7 @@ class Cenario1ViewController : UIViewController {
         //navigationController?.navigationBar.isHidden = false
     
         chompPlayer = createPlayer(from: "tada")
+        FoundPlayer = createPlayer2(from: "success")
         
         //Logo
         let elipses = UIImage(named: "logo-2.png")
@@ -593,6 +595,25 @@ class Cenario1ViewController : UIViewController {
       return player
     }
     
+    func createPlayer2(from filename: String) -> AVAudioPlayer? {
+      guard let url = Bundle.main.url(
+        forResource: filename,
+        withExtension: "wav"
+        ) else {
+          return nil
+      }
+      var player = AVAudioPlayer()
+
+      do {
+        try player = AVAudioPlayer(contentsOf: url)
+        player.prepareToPlay()
+      } catch {
+        print("Error loading \(url.absoluteString): \(error)")
+      }
+
+      return player
+    }
+    
     
     
     @objc func tapLupa() {
@@ -637,6 +658,7 @@ class Cenario1ViewController : UIViewController {
           
             
             //chompPlayer?.play()
+            FoundPlayer?.play()
             
             
            
@@ -694,6 +716,8 @@ class Cenario1ViewController : UIViewController {
             megaphoneCheck.isHidden = false
             
             //chompPlayer?.play()
+            FoundPlayer?.play()
+                      
             
         }
         
@@ -744,6 +768,8 @@ class Cenario1ViewController : UIViewController {
             connectCheck.isHidden = false
             
             //chompPlayer?.play()
+            FoundPlayer?.play()
+                      
             
         }
     }
@@ -906,7 +932,7 @@ navigation.pushViewController(firstViewController, animated: false)
 
 
 // Present the view controller in the Live View window
-PlaygroundPage.current.liveView = navigation.scale(to: 0.4)
+PlaygroundPage.current.liveView = navigation.scale(to: 0.6)
 
 
 
